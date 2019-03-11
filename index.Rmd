@@ -1,0 +1,87 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+```
+
+# Page 1 {data-icon="fa-calendar"}
+
+Sidebar Title {.sidebar}
+-------------------
+
+Your text here. You can use markdown syntax, including links, italics, bolds, etc. 
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+This text will be above all plots - knit to see 
+
+### Chart A
+
+
+```{r}
+ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
+  geom_point()
+```
+
+> Here is a scatterplot of .... 
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+ggplot(mtcars, aes(wt, fill = factor(cyl))) +
+  geom_bar()
+```
+
+
+### Table
+
+```{r}
+library(DT)
+datatable(select(mpg, model, hwy, displ))
+```
+
+# Page 2
+
+Column {.tabset}
+-----------------------------------------------
+
+### Chart C
+
+```{r}
+ggplot(mtcars, aes(disp, wt)) +
+  geom_line()+
+  geom_smooth()
+```
+
+
+### Chart C tab
+
+```{r}
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_line()+
+  geom_smooth()
+```
+
+### Plotly {data-icon="fa-calendar"}
+
+```{r}
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_line()+
+  geom_point() +
+  geom_smooth()
+
+plotly::ggplotly(p)
+```
